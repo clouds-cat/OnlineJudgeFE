@@ -1,10 +1,18 @@
-## 开发说明
+## 开发说明 :rocket:
 
-### 1. 克隆仓库
+### 1. 克隆仓库/拉取仓库
+
++ 克隆
 
 ```bash
-git clone https://github.com/clouds-cat/OnlineJudgeFE.git
+git clone https://github.com/clouds-cat/OnlineJudgeBE.git
 cd OnlineJudgeBE
+```
+
++ 拉取
+
+```bash
+git pull
 ```
 
 ### 2. 切换到自己的分支
@@ -31,7 +39,7 @@ git push origin your_branch
 
 点击 `merge` 按钮完成合并。
 
-## 目录结构
+## 目录结构 :evergreen_tree:
 
 ```bash
 .
