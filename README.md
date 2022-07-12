@@ -6,7 +6,6 @@
 
 ```bash
 git clone https://github.com/clouds-cat/OnlineJudgeBE.git
-cd OnlineJudgeBE
 ```
 
 + 拉取
