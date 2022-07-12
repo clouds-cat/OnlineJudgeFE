@@ -1,4 +1,4 @@
-## 开发说明 :rocket:
+## 一、开发说明 :rocket:
 
 ### 1. 克隆仓库/拉取仓库
 
@@ -23,6 +23,8 @@ git checkout -b your_branch
 
 ### 3. 创建、添加、修改自己负责的模块
 
+> Developing…
+
 ### 4. 提交项目至仓库（分支）
 
 ```bash
@@ -39,7 +41,7 @@ git push origin your_branch
 
 点击 `merge` 按钮完成合并。
 
-## 目录结构 :evergreen_tree:
+## 二、目录结构 :evergreen_tree:
 
 ```bash
 .
