@@ -1,4 +1,4 @@
-## 一、开发说明 :rocket:
+## 开发说明 :rocket:
 
 ### 1. 克隆仓库/拉取仓库
 
@@ -41,7 +41,7 @@ git push origin your_branch
 
 点击 `merge` 按钮完成合并。
 
-## 二、目录结构 :evergreen_tree:
+## 目录结构 :evergreen_tree:
 
 ```bash
 .
