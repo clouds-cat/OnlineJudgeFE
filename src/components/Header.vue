@@ -7,41 +7,27 @@
       </ul>
     </header>
     <section class="banner1"></section>
-    <section class="banner2">
-      <el-card  :shadow="always" class="box-card">
-
-          <div>111</div>
-      </el-card>
-    </section>
+    <div class="test">
+      <el-card>haha</el-card>
+      <router-view/>
+    </div>
   </body>
 </template>
 
 <script>
-import { SmileTwoTone } from "@ant-design/icons-vue";
-
 export default {
-  name: "index",
-  components: {
-    SmileTwoTone,
-  },
-  data() {
-    return {};
-  },
-
-};
-
-window.addEventListener("scroll",()=>{
-    let header=document.querySelector("header");
-    header.classList.toggle("sticky",window.scrollY>300)
-  })
+  name: "Header"
+}
+window.addEventListener("scroll", () => {
+  let header = document.querySelector("header");
+  header.classList.toggle("sticky", window.scrollY > 300)
+})
 </script>
 
 <style scoped>
 body {
-  min-height: 200vh;
-  background-color: rgb(243, 243, 243);
-}
 
+}
 header {
   position: fixed;
   top: 0;
@@ -50,7 +36,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 100px;
+  padding: 15px 100px;
   z-index: 1;
   transition: 0.6s;
 }
@@ -63,6 +49,7 @@ header {
   letter-spacing: 2px;
   transition: 0.6s;
 }
+
 header ul {
   display: flex;
   justify-content: center;
@@ -78,32 +65,20 @@ header ul li {
   letter-spacing: 2px;
   transition: 0.6s;
 }
+
 .banner1 {
-  position: relative;
   width: 100%;
   height: 100vh;
   background-size: cover;
-  background: url("../../assets/1.jpg") no-repeat center center;
-}
-
-.banner2 {
-  position: relative;
-  top:-100px;
+  background: url("../assets/1.jpg") no-repeat center center;
 }
 
 header.sticky {
   padding: 6px 100px;
   background-color: #fff;
 }
-header.sticky .logo, header.sticky ul li{
-  color:black;
-}
 
-.box-card {
-  width: 90%;
-  height: 100vh;
-  background-color: #fff;
-  position:absolute;
-  left: 5%;
+header.sticky .logo, header.sticky ul li {
+  color: black;
 }
 </style>

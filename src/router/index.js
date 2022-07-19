@@ -4,8 +4,9 @@ import {adminRoutes} from "./admin";
 const routes = [
     ...adminRoutes,
     {
-        path: '/',
-        redirect: '/index',
+        path: '/ha',
+        redirect: '/test',
+        component: () => import("../layout/OJ.vue"),
         children: [
             {
                 path: "/index",
@@ -13,8 +14,12 @@ const routes = [
                     // title:"?"
                 },
                 component: () => import("../views/oj/index.vue")
+            },
+            {
+                path: "/test",
+                meta: {},
+                component: () => import("../views/oj/test.vue")
             }
-
         ],
     },
     {
