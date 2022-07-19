@@ -1,17 +1,12 @@
 <template>
-  <body>
-    <header>
-      <div class="logo">{{ "OnlineJudge" }}</div>
-      <ul>
-        <li>{{ "题目" }}</li>
-      </ul>
-    </header>
-    <section class="banner1"></section>
-    <div class="test">
-      <el-card>haha</el-card>
-      <router-view/>
-    </div>
-  </body>
+  <header>
+    <div class="logo">{{ "OnlineJudge" }}</div>
+    <div class="menu">题目</div>
+  </header>
+  <section class="banner1">
+      <img src="../assets/1.jpg" class="bg">
+      <router-view class="content"/>
+  </section>
 </template>
 
 <script>
@@ -20,14 +15,16 @@ export default {
 }
 window.addEventListener("scroll", () => {
   let header = document.querySelector("header");
-  header.classList.toggle("sticky", window.scrollY > 300)
+  let scrollPosition = window.pageYOffset
+  header.classList.toggle("sticky", scrollPosition > 500)
+  const bg = document.querySelector(".bg")
+  bg.style.transform = `translateY(${scrollPosition*0.5}px)`;
+
 })
 </script>
 
 <style scoped>
-body {
 
-}
 header {
   position: fixed;
   top: 0;
@@ -40,6 +37,29 @@ header {
   z-index: 1;
   transition: 0.6s;
 }
+.banner1 {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  position: relative;
+  background: #e5e5e5;
+}
+.bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  /*z-index: -1;*/
+}
+.content {
+  top: 100vh;
+  position: absolute;
+  width: 96%;
+  display: block;
+  background: #ffffff;
+}
 
 .logo {
   font-size: 32px;
@@ -49,36 +69,19 @@ header {
   letter-spacing: 2px;
   transition: 0.6s;
 }
-
-header ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-header ul li {
-  list-style: none;
-  margin: 0 15px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  letter-spacing: 2px;
-  transition: 0.6s;
-}
-
-.banner1 {
-  width: 100%;
-  height: 100vh;
-  background-size: cover;
-  background: url("../assets/1.jpg") no-repeat center center;
+.menu{
+  font-size: 20px;
+  color: #ffffff;
 }
 
 header.sticky {
+  width: 100%;
+  box-shadow: 0 2px 5px 1px rgba(58, 59, 45, 0.5);
   padding: 6px 100px;
   background-color: #fff;
 }
 
-header.sticky .logo, header.sticky ul li {
+header.sticky .logo, header.sticky .menu {
   color: black;
 }
 </style>
