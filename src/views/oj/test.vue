@@ -1,12 +1,50 @@
 <template>
-  <el-card style="min-height: 1000px">
-    haha
-  </el-card>
+  <div>
+    <a-row>
+      <a-col :span="13">
+        <a-card>
+          <template #title>
+            <span style="font-size: 28px;text-align: center;color:#777;display: block">{{Problem.title}}</span>
+          </template>
+          <v-md-editor v-model="Problem.description" mode="preview"></v-md-editor>
+        </a-card>
+      </a-col>
+      <a-col :span="10" :offset="1">
+        <a-badge-ribbon :text="Problem.level" color="purple" style="width: 10vh;height:4vh;font-size: 23px;">
+          <a-card size="small">
+            <template #title>
+              <span style="font-size: 28px;text-align: center;color:#71a9c5;display: block">题目信息</span>
+            </template>
+            <p style="font-size: 21px;">运行限制</p>
+            <div style="font-size: 16px">
+              <ul>
+                <li>最大运行时间：</li>
+                <li style="margin-top: 12px">最大运行内存：</li>
+              </ul>
+              <p style="font-size: 21px;vertical-align:middle">
+                标签
+                <a-switch v-model:checked="tag_show" style="margin-top: -3px; margin-left: 15px"/>
+              </p>
+            </div>
+          </a-card>
+        </a-badge-ribbon>
+      </a-col>
+    </a-row>
+  </div>
 </template>
-
 <script>
 export default {
   name: "test",
+  data(){
+    return {
+      tag_show:false,
+      Problem:{
+        title:"质因子个数",
+        description: "### 问题描述\n" + "\n" + "给定正整数 $n$, 请问有多少个质数是 $n$ 的约数。\n" + "\n" + "### 输入格式 \n" + "\n" + "输入的第一行包含一个整数 $n$ 。\n" + "\n" + "### 输出格式 \n" + "\n" + "输出一个整数, 表示 $n$ 的质数约数个数。\n" + "\n" + "### 样例输入 \n" + "\n" + "```TEXT\n" + "396\n" + "```\n" + "\n" + "\n" + "\n" + "### 样例输出 \n" + "\n" + "```text\n" + "3\n" + "```\n" + "\n" + "\n" + "\n" + "### 样例说明\n" + "\n" + "396 有 $2,3,11$ 三个质数约数。\n" + "\n" + "### 评测用例规模与约定 \n" + "\n" + "对于 $30 \\%$ 的评测用例, $1 \\leq n \\leq 10000$ 。\n" + "\n" + "对于 $60 \\%$ 的评测用例, $1 \\leq n \\leq 10^{9}$ 。\n" + "\n" + "对于所有评测用例, $1 \\leq n \\leq 10^{16}$ 。",
+        level: "入门"
+      },
+    }
+  },
   created() {
     console.log("fuck you")
   }
@@ -14,5 +52,20 @@ export default {
 </script>
 
 <style scoped>
-
+/*/deep/ .el-card__header {*/
+/*  background-color: #f5faff;*/
+/*  padding:10px 10px 10px 10px*/
+/*}*/
+/deep/ .ant-card-head-title{
+  padding: 5px;
+}
+/deep/ .github-markdown-body{
+  padding: 0 10px 10px;
+}
+/deep/ .ant-card-bordered{
+  box-shadow: 0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+}
+/deep/ .ant-ribbon-text {
+  vertical-align: sub;
+}
 </style>

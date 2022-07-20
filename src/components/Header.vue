@@ -3,10 +3,12 @@
     <div class="logo">{{ "OnlineJudge" }}</div>
     <div class="menu">题目</div>
   </header>
-  <section class="banner1">
+  <body>
+    <section class="banner1">
       <img src="../assets/1.jpg" class="bg">
       <router-view class="content"/>
-  </section>
+    </section>
+  </body>
 </template>
 
 <script>
@@ -24,6 +26,17 @@ window.addEventListener("scroll", () => {
 </script>
 
 <style scoped>
+body::before{
+  content: ' ';
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #e5e5e5;
+  background-size: 100% auto;
+}
 
 header {
   position: fixed;
@@ -51,6 +64,10 @@ header {
   top: 0;
   width: 100%;
   height: 100vh;
+  /*box-shadow:     -20px 0 20px 5px rgba(213, 255, 145, 0.5),*/
+  /*0px -20px 20px 5px rgba(145, 255, 191, 0.5),*/
+  /*20px 0 20px 5px rgba(82, 255, 220, 0.5),*/
+  /*0 20px 20px 5px rgba(239, 255, 91, 0.5);*/
   /*z-index: -1;*/
 }
 .content {
