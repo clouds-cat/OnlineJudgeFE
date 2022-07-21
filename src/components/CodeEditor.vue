@@ -29,7 +29,7 @@ export default {
   props:{
     code:{
       type: String,
-      require: true
+      required: true
     },
   },
   setup(props, context) {
@@ -85,6 +85,9 @@ export default {
 <style>
 /deep/ .ͼ1.cm-editor.cm-focused{
   /*outline: 1px  #42b983;*/
+}
+.ͼ1 .cm-content{
+  font-size: 16px;
 }
 .ͼ1.cm-editor.cm-focused {
   position: relative !important;

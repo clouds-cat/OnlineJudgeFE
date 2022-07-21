@@ -2,7 +2,7 @@
   <div>
     <a-row>
       <a-col :span="13">
-        <a-card>
+        <a-card class="problem-description">
           <template #title>
             <span style="font-size: 28px;text-align: center;color:#777;display: block">{{Problem.title}}</span>
           </template>
@@ -23,7 +23,8 @@
               </ul>
             </div>
             <p style="font-size: 21px;vertical-align:middle;margin-left: 15px; font-weight: bolder">
-              标签<a-switch v-model:checked="tag_show" style="margin-top: -3px; margin-left: 15px"/>
+                标签
+              <a-switch v-model:checked="tag_show" style="margin-top: -4px; margin-left: 15px"/>
             </p>
             <div v-if="tag_show">
               <a-space style="margin-left: 25px;" :size="5">
@@ -31,6 +32,7 @@
               </a-space>
             </div>
             <p style="font-size: 21px;margin-top: 25px;margin-left: 15px;font-weight: bolder">统计</p>
+            <ProblemEcharts :data="Problem.data"/>
           </a-card>
         </a-badge-ribbon>
           <a-card style="margin-top: 20px">
@@ -52,8 +54,8 @@
                 <a-space :size="10">
                   <span style="font-size: 17px"> 主题: </span>
                   <a-select @change="ModifyCodeEditor" v-model:value="theme" style="width: 20vh">
-                    <a-select-option value="dark">优化黑</a-select-option>
-                    <a-select-option value="bright">炫丽白</a-select-option>
+                    <a-select-option value="dark">优雅黑</a-select-option>
+                    <a-select-option value="bright">简约白</a-select-option>
                   </a-select>
                 </a-space>
               </a-col>
@@ -63,7 +65,7 @@
               <CodeEditor ref="CM" v-model:code="code"></CodeEditor>
             </div>
             <a-button danger block style="margin-top: 10px" type="primary" @click="handleDelete" :disabled="code.length<=0"> 清空代码 </a-button>
-            <a-button block style="margin-top: 10px" @click="submitCode"> 提交 </a-button>
+            <a-button block style="margin-top: 10px" @click="submitCode" :loading="submit_loading" type="primary"> 提交 </a-button>
           </a-card>
       </a-col>
     </a-row>
@@ -71,12 +73,14 @@
 </template>
 <script>
 import CodeEditor from "../../components/CodeEditor.vue";
+import ProblemEcharts from "../../components/ProblemEcharts.vue";
 import {message} from "ant-design-vue";
 export default {
   name: "test",
-  components: {CodeEditor},
+  components: {CodeEditor, ProblemEcharts},
   data(){
     return {
+      submit_loading:false,
       code:"",
       theme: "dark",
       language:"C++",
@@ -88,6 +92,14 @@ export default {
         level: "入门",
         time_limit: "1000",
         memory_limit:"256",
+        data:{
+          ac: "100",
+          wa: "50",
+          tle: "30",
+          mle: "20",
+          re: "10",
+          ce: "5"
+        },
       },
       Tags: [
           {tag_id: "线段树", color: "#f50"},
@@ -108,32 +120,61 @@ export default {
       console.log(this.code)
     },
     submitCode(){
-      if(this.code.length <= 0) {
-        message.error('代码不能为空');
+      if(this.code.length <= 0){
+        message.error({
+          content: ()=> " 代 码 不 能 为 空",
+          class: "message-prompt",
+          duration:"3"
+        });
+        return
       }
+      this.submit_loading = true
+      setTimeout(() => {
+        this.submit_loading = false;
+          message.success({
+          content: ()=> " 提 交 成 功",
+          class: "message-prompt",
+          duration:"3"
+        });
+      }, 2000);
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 /*/deep/ .el-card__header {*/
 /*  background-color: #f5faff;*/
 /*  padding:10px 10px 10px 10px*/
 /*}*/
-/deep/ .ant-card-head-title{
+.ant-card-head-title{
   padding: 5px;
 }
-/deep/ .github-markdown-body{
+.github-markdown-body{
   padding: 0 10px 10px;
 }
-/deep/ .ant-card-bordered{
+.ant-card-bordered{
   box-shadow: 0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 }
-/deep/ .ant-ribbon-text {
+.ant-ribbon-text {
   vertical-align: sub;
 }
-/deep/ .ant-card{
+.ant-card{
   border-radius: 35px;
+}
+.message-prompt{
+  margin-top: 6vh;
+  font-size: 16px;
+}
+.ant-message-notice-content{
+  font-weight: bold;
+  border: 1px solid black;
+  box-shadow:
+      0 0 10px 10px #fce9e9,  /* inner white */
+      0 0 10px 10px #f0f, /* middle magenta */
+      0 0 10px 10px #0ff; /* outer cyan */
+}
+.problem-description{
+
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <a-button @click="add">ha</a-button>
   <p> {{count}} </p>
+  <a-card>haha</a-card>
 </template>
 <script>
 import {ref} from "vue"
