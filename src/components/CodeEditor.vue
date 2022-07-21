@@ -38,7 +38,7 @@ export default {
     let selectValue = "cpp";
     let dateTime = "黑夜";
     const options = reactive({
-      style: { height: "400px"},
+      style: { height: "100%"},
       mode: "text/x-c++src",
       spellcheck: true,
       autofocus: true,

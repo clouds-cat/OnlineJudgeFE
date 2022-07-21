@@ -19,6 +19,16 @@ const routes = [
                 path: "/test",
                 meta: {},
                 component: () => import("../views/oj/test.vue")
+            },
+            {
+                path: "/test1",
+                meta: {},
+                component: () => import("../views/oj/test1.vue")
+            },
+            {
+                path: "/test2",
+                name: "Test2",
+                component: () => import("../views/oj/test2.vue")
             }
         ],
     },
@@ -34,16 +44,6 @@ const routes = [
         component: () => import("../views/error/404.vue"),
         hidden: true,
     },
-    {
-        path: "/test1",
-        name: "Test1",
-        component: () => import("../views/oj/test1.vue")
-    },
-    {
-        path: "/test2",
-        name: "Test2",
-        component: () => import("../views/oj/test2.vue")
-    }
 
 ];
 

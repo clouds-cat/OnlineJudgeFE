@@ -50,10 +50,11 @@ export default {
 </script>
 <style lang="less" scoped>
 a{
-  color: red;
+  color: white;
 }
 .footers-wrapper{
-  height: 84px;
+  background: #000000BF;
+  height: 83px;
   display: flex;
   align-items: center;
   justify-content: center;

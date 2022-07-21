@@ -1,7 +1,6 @@
 <template>
-  <router-view />
-  <footers></footers>
-
+  <router-view/>
+  <footers style="margin-top: 10vh"/>
 </template>
 <script>
 import  footers  from './components/common/footers/index.vue'

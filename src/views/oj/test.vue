@@ -61,7 +61,7 @@
               </a-col>
             </a-row>
             <hr style="margin-top: 20px"/>
-            <div style="margin-top:20px">
+            <div style="margin-top:20px;height: 400px">
               <CodeEditor ref="CM" v-model:code="code"></CodeEditor>
             </div>
             <a-button danger block style="margin-top: 10px" type="primary" @click="handleDelete" :disabled="code.length<=0"> 清空代码 </a-button>
