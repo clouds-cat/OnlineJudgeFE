@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue'
+const { resolve } = require('path')
 
 export default {
   // base: './',
@@ -17,6 +18,9 @@ export default {
         }
       }
     }
-  }
+  },
+  alias: {
+    '/@/': resolve(__dirname, 'src'),
+  },
 }
 

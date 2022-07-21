@@ -6,19 +6,23 @@
         <li>{{ "题目" }}</li>
       </ul>
     </header>
-    <section class="banner1"></section>
+    <div >
+         <section class="banner1"></section>
     <section class="banner2">
       <el-card  :shadow="always" class="box-card">
-
+          
           <div>111</div>
       </el-card>
+
     </section>
+    </div>
+
+
   </body>
 </template>
 
 <script>
 import { SmileTwoTone } from "@ant-design/icons-vue";
-
 export default {
   name: "index",
   components: {
@@ -71,7 +75,7 @@ header ul {
 
 header ul li {
   list-style: none;
-  margin: 0 15px;
+  /* margin: 0 15px; */
   text-decoration: none;
   color: #fff;
   font-weight: 500;
@@ -79,23 +83,26 @@ header ul li {
   transition: 0.6s;
 }
 .banner1 {
-  position: relative;
   width: 100%;
   height: 100vh;
+  background: url("../../assets/1.jpg") no-repeat;
   background-size: cover;
-  background: url("../../assets/1.jpg") no-repeat center center;
 }
 
 .banner2 {
-  position: relative;
-  top:-100px;
+  margin-top: -100px;
+   box-shadow: 0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+    border-radius: 6px;
+
 }
+
 
 header.sticky {
   padding: 6px 100px;
   background-color: #fff;
 }
-header.sticky .logo, header.sticky ul li{
+header.sticky .logo,
+header.sticky ul li{
   color:black;
 }
 
@@ -103,7 +110,7 @@ header.sticky .logo, header.sticky ul li{
   width: 90%;
   height: 100vh;
   background-color: #fff;
-  position:absolute;
+  margin: 0 auto;
   left: 5%;
 }
 </style>

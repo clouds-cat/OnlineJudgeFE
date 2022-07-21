@@ -73,16 +73,9 @@ header {
 }
 .banner1 {
   width: 100%;
-  display: flex;
-  align-items: end;
-  justify-content: center;
-  position: relative;
   background: #e5e5e5;
 }
 .bg {
-  position: absolute;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 100vh;
   /*z-index: -1;*/
@@ -92,11 +85,10 @@ header {
   /*0 20px 20px 5px rgba(239, 255, 91, 0.5);*/
 }
 .main {
-  top: 100vh;
-  position: absolute;
   width: 95%;
   border-radius: 15px;
   flex: 1;
+  margin: 0 auto;
 }
 .logo {
   font-size: 32px;
