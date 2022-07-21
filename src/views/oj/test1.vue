@@ -64,14 +64,14 @@
           <div style="margin-top:20px; height: 81vh">
             <CodeEditor ref="CM" v-model:code="code"></CodeEditor>
           </div>
-            <el-row justify="space-between" style="margin-top: 20px">
-              <el-col :span="11">
+            <a-row justify="space-between" style="margin-top: 20px">
+              <a-col :span="11">
                 <a-button size="large" danger  style="width: 100%"  type="primary" @click="handleDelete" :disabled="code.length<=0"> 清空代码 </a-button>
-              </el-col>
-              <el-col :span="11" :offset="2">
+              </a-col>
+              <a-col :span="11" :offset="2">
                 <a-button size="large"  style="width: 100%;" @click="submitCode" :loading="submit_loading" type="primary"> 提交 </a-button>
-              </el-col>
-            </el-row>
+              </a-col>
+            </a-row>
         </a-card>
       </a-col>
     </a-row>

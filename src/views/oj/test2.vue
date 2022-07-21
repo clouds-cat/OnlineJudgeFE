@@ -37,12 +37,12 @@
           <div style="margin-top:20px;height: 400px">
             <CodeEditor ref="CM" v-model:code="code"></CodeEditor>
           </div>
-          <el-row justify="end" style="margin-top: 20px">
+          <a-row justify="end" style="margin-top: 20px">
             <a-button-group>
               <a-button size="large" style="width: 100px; font-weight: bold" danger   type="primary" @click="handleDelete" :disabled="code.length<=0"> 清空 </a-button>
               <a-button size="large" style="width: 100px; font-weight: bold; margin-left: 15px" @click="submitCode" :loading="submit_loading" type="primary"> 提交 </a-button>
             </a-button-group>
-          </el-row>
+          </a-row>
         </a-card>
       </a-col>
       <a-col :span="7">
