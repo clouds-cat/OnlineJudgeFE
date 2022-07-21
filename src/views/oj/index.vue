@@ -16,7 +16,6 @@
 
     </section>
     </div>
-      <footers></footers>
 
 
   </body>
@@ -24,12 +23,10 @@
 
 <script>
 import { SmileTwoTone } from "@ant-design/icons-vue";
-import  footers  from '../../components/common/footers/index.vue'
 export default {
   name: "index",
   components: {
     SmileTwoTone,
-    footers
   },
   data() {
     return {};
@@ -90,7 +87,6 @@ header ul li {
   height: 100vh;
   background: url("../../assets/1.jpg") no-repeat;
   background-size: cover;
-  background-position: center center;
 }
 
 .banner2 {

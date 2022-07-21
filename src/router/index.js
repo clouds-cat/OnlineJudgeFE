@@ -5,7 +5,8 @@ const routes = [
     ...adminRoutes,
     {
         path: '/',
-        redirect: '/index',
+        redirect: '/test',
+        component: () => import("../layout/OJ.vue"),
         children: [
             {
                 path: "/index",
@@ -13,8 +14,12 @@ const routes = [
                     // title:"?"
                 },
                 component: () => import("../views/oj/index.vue")
+            },
+            {
+                path: "/test",
+                meta: {},
+                component: () => import("../views/oj/test.vue")
             }
-
         ],
     },
     {
@@ -28,7 +33,13 @@ const routes = [
         name: "404",
         component: () => import("../views/error/404.vue"),
         hidden: true,
+    },
+    {
+        path: "/test1",
+        name: "Test1",
+        component: () => import("../views/oj/test1.vue")
     }
+
 ];
 
 const router = createRouter({
