@@ -17,6 +17,11 @@ import hljs from 'highlight.js';
 import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index';
 import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css';
 import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
+
+
+import * as echarts from 'echarts'
+
+
 VueMarkdownEditor.use(githubTheme, {
     Hljs: hljs,
 });
@@ -24,6 +29,7 @@ VueMarkdownEditor.use(createKatexPlugin());
 VueMarkdownEditor.use(createCopyCodePlugin());
 
 const app = createApp(App)
+app.config.globalProperties.$echarts = echarts;
 
 app
     .use(ElementPlus, { size: 'small', zIndex: 3000 })
