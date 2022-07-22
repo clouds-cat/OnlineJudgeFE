@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="logo">{{ "OnlineJudge" }}</div>
+    <div class="logo">{{ "Clouds-Cat OJ" }}</div>
     <div class="menu">题目</div>
   </header>
   <body>
