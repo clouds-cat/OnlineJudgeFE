@@ -5,7 +5,7 @@
 + 克隆
 
 ```bash
-git clone https://github.com/clouds-cat/OnlineJudgeBE.git
+git clone https://github.com/clouds-cat/OnlineJudgeFE.git
 ```
 
 + 拉取
