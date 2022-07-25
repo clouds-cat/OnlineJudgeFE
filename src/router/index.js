@@ -39,6 +39,12 @@ const routes = [
         hidden: true,
     },
     {
+        path: '/finallytest',
+        name: "finallytest",
+        component: () => import("../views/oj/finallytest/index.vue"),
+        hidden: true,
+    },
+    {
         path: '/:pathMatch(.*)*',
         name: "404",
         component: () => import("../views/error/404.vue"),
