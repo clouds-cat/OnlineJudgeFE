@@ -5,7 +5,7 @@ const routes = [
     ...adminRoutes,
     {
         path: '/',
-        redirect: '/test',
+        // redirect: '/test',
         component: () => import("../layout/OJ.vue"),
         children: [
             {
@@ -14,6 +14,11 @@ const routes = [
                     // title:"?"
                 },
                 component: () => import("../views/oj/index.vue")
+            },
+            {
+                path: "/problems",
+                name: "Problems",
+                component: () => import("../views/oj/problem/ProblemList.vue")
             },
             {
                 path: "/test",
