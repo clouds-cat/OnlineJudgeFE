@@ -82,14 +82,14 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 /deep/ .ͼ1.cm-editor.cm-focused{
   /*outline: 1px  #42b983;*/
 }
 .ͼ1 .cm-content{
   font-size: 16px;
 }
-.ͼ1.cm-editor.cm-focused {
+/* .ͼ1.cm-editor.cm-focused {
   position: relative !important;
   box-sizing: border-box;
   display: flex !important;
@@ -99,5 +99,5 @@ export default {
   0 -6px 6px 5px rgba(145, 255, 191, 0.5),
   6px 0 6px 5px rgba(82, 255, 220, 0.5),
   0 6px 6px 5px rgba(239, 255, 91, 0.5);
-}
+} */
 </style>

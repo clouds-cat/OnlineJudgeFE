@@ -5,6 +5,7 @@ const routes = [
     ...adminRoutes,
     {
         path: '/',
+        name:'/',
         redirect: '/test',
         component: () => import("../layout/OJ.vue"),
         children: [

@@ -13,7 +13,7 @@ jobs:
 
       - name: Install and Build   
         run: |
-          npm install
+          npm install --legacy-peer-dep
           npm run build
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
