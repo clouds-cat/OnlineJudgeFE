@@ -8,40 +8,43 @@
       <img src="../assets/1.jpg" class="bg">
       <router-view class="main"/>
     </section>
+    <footers></footers>
   </body>
 </template>
 
 <script>
+import Footers from '../components/common/footers/index.vue';
 export default {
-  name: "OJ",
-  methods: {
-    throttle(fn, wait) { // 封装函数进行节流
-      let timer = null;
-      return function () {
-        let context = this;
-        let args = arguments;
-        if (!timer) {
-          timer = setTimeout(function () {
-            fn.apply(context, args);
-            timer = null;
-          }, wait);
+    name: "OJ",
+    methods: {
+        throttle(fn, wait) {
+            let timer = null;
+            return function () {
+                let context = this;
+                let args = arguments;
+                if (!timer) {
+                    timer = setTimeout(function () {
+                        fn.apply(context, args);
+                        timer = null;
+                    }, wait);
+                }
+            };
+        },
+        handle() {
+            let header = document.querySelector("header");
+            let scrollPosition = window.pageYOffset;
+            header.classList.toggle("sticky", scrollPosition > 500);
+            const bg = document.querySelector(".bg");
+            bg.style.transform = `translateY(${scrollPosition * 0.5}px)`;
         }
-      };
     },
-    handle() { // 功能代码
-      let header = document.querySelector("header");
-      let scrollPosition = window.pageYOffset
-      header.classList.toggle("sticky", scrollPosition > 500)
-      const bg = document.querySelector(".bg")
-      bg.style.transform = `translateY(${scrollPosition*0.5}px)`;
-    }
-  },
-  mounted() {
-    window.addEventListener("scroll", this.handle);
-  },
-  destroyed(){  // 这里运用毁灭生命周期 , 避免资源泄露和浪费
-    window.removeEventListener("scroll", this.throttle(),false);
-  },
+    mounted() {
+        window.addEventListener("scroll", this.handle);
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.throttle(), false);
+    },
+    components: { Footers }
 }
 </script>
 
@@ -74,6 +77,7 @@ header {
 .banner1 {
   width: 100%;
   background: #e5e5e5;
+  padding-bottom: 30px;
 }
 .bg {
   width: 100%;
