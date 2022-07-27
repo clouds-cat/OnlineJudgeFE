@@ -2,7 +2,7 @@
   <div>
     <div class="banner">
       <div class="title"> Clouds-Cat Contest #1</div>
-      <div class="remark"> OJ 第一场月赛 </div>
+      <div class="remark"> OJ 第一场月赛</div>
       <div class="desc"> 每月一场，激情过瘾！</div>
     </div>
   </div>
@@ -10,22 +10,55 @@
     <a-row :gutter="21">
       <a-col :span="16">
         <a-card>
+          <template #title>
+            <span style="font-size: 30px;color:#71a9c5;display: block; text-align: center">题目列表</span>
+            <el-space style="margin-bottom: 15px; margin-top: 5px"  spacer="|">
+              <a-input-search v-model:value="value" size="large" placeholder="请输入题目标题/ID" @search="onSearch" style="width: 30vh;" :loading="search_loading"/>
+              <a-dropdown style="float:right;">
+                <el-tag style="font-size: 17px;color: #666666" effect="light" type="info" size="large">难度 <DownOutlined /></el-tag>
+                <template #overlay>
+                  <a-menu>
+                    <a-menu-item key="1">入门</a-menu-item>
+                    <a-menu-item>简单</a-menu-item>
+                  </a-menu>
+                </template>
+              </a-dropdown>
+            </el-space>
+          </template>
           <el-table :data="ProblemList" table-layout="auto">
-            <el-table-column prop="problemId" label="#" align="center"/>
-            <el-table-column prop="title" label="题目" />
-            <el-table-column prop="level" label="难度" align="center"/>
-            <el-table-column prop="" label="通过率" align="center">
+            <el-table-column prop="problemId" label="#" align="center">
               <template #default="scope">
-                {{scope.row.rate}}%
+                <span style="font-size: 17px;">{{ scope.row.problemId }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="submit" label="提交数" align="center"/>
-            <el-table-column prop="submit" label="">
+            <el-table-column prop="title" label="题目">
+              <template #default="scope">
+                <span style="font-size: 17px;">{{ scope.row.title }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="level" label="难度" align="center">
+              <template #default="scope">
+                <el-tag effect="dark" type="danger">{{ scope.row.level }}</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="" label="通过率" align="center">
+              <template #default="scope">
+                <span style="font-size: 16px;">{{ scope.row.rate }}%</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="submit" label="提交数" align="center">
+              <template #default="scope">
+                <span style="font-size: 16px;">{{ scope.row.submit }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="submit">
               <template #default="scope">
                 <el-button class="btn" round>开始挑战</el-button>
               </template>
             </el-table-column>
           </el-table>
+          <a-pagination style="margin-top: 20px;text-align:center;" v-model:current="pageNumber" :total="total"
+                        @change="onChange"/>
         </a-card>
       </a-col>
       <a-col :span="8">
@@ -41,18 +74,23 @@
 </template>
 
 <script>
+import {DownOutlined} from '@ant-design/icons-vue'
+
 export default {
+  components: {
+    DownOutlined
+  },
   name: "ProblemList",
-  data(){
+  data() {
     return {
       ProblemList: [
         {
-          problemId: 1,
-          title:"质因子个数",
+          problemId: 1001,
+          title: "质因子个数",
           description: "### 问题描述\n" + "\n" + "给定正整数 $n$, 请问有多少个质数是 $n$ 的约数。\n" + "\n" + "### 输入格式 \n" + "\n" + "输入的第一行包含一个整数 $n$ 。\n" + "\n" + "### 输出格式 \n" + "\n" + "输出一个整数, 表示 $n$ 的质数约数个数。\n" + "\n" + "### 样例输入 \n" + "\n" + "```TEXT\n" + "396\n" + "```\n" + "\n" + "\n" + "\n" + "### 样例输出 \n" + "\n" + "```text\n" + "3\n" + "```\n" + "\n" + "\n" + "\n" + "### 样例说明\n" + "\n" + "396 有 $2,3,11$ 三个质数约数。\n" + "\n" + "### 评测用例规模与约定 \n" + "\n" + "对于 $30 \\%$ 的评测用例, $1 \\leq n \\leq 10000$ 。\n" + "\n" + "对于 $60 \\%$ 的评测用例, $1 \\leq n \\leq 10^{9}$ 。\n" + "\n" + "对于所有评测用例, $1 \\leq n \\leq 10^{16}$ 。",
           level: "入门",
           time_limit: "1000",
-          memory_limit:"256",
+          memory_limit: "256",
           ac: 100,
           wa: 50,
           tle: 30,
@@ -63,12 +101,12 @@ export default {
           rate: 53.3
         },
         {
-          problemId: 2,
-          title:"A + B",
+          problemId: 1002,
+          title: "A + B",
           description: "### 问题描述\n" + "\n" + "给定正整数 $n$, 请问有多少个质数是 $n$ 的约数。\n" + "\n" + "### 输入格式 \n" + "\n" + "输入的第一行包含一个整数 $n$ 。\n" + "\n" + "### 输出格式 \n" + "\n" + "输出一个整数, 表示 $n$ 的质数约数个数。\n" + "\n" + "### 样例输入 \n" + "\n" + "```TEXT\n" + "396\n" + "```\n" + "\n" + "\n" + "\n" + "### 样例输出 \n" + "\n" + "```text\n" + "3\n" + "```\n" + "\n" + "\n" + "\n" + "### 样例说明\n" + "\n" + "396 有 $2,3,11$ 三个质数约数。\n" + "\n" + "### 评测用例规模与约定 \n" + "\n" + "对于 $30 \\%$ 的评测用例, $1 \\leq n \\leq 10000$ 。\n" + "\n" + "对于 $60 \\%$ 的评测用例, $1 \\leq n \\leq 10^{9}$ 。\n" + "\n" + "对于所有评测用例, $1 \\leq n \\leq 10^{16}$ 。",
           level: "入门",
           time_limit: "1000",
-          memory_limit:"256",
+          memory_limit: "256",
           ac: 0,
           wa: 0,
           tle: 0,
@@ -79,13 +117,27 @@ export default {
           rate: 0.0,
         }
       ],
+      pageSize: 15,
+      pageNumber: 1,
+      total: 30,
+      search_loading: false,
+      search_level: "",
+      options: [{value: "0", label: "入门"}, {value: "1", label: "简单"}],
+    }
+  },
+  methods: {
+    onChange(pageNumber) {
+      this.pageNumber = pageNumber
+    },
+    onSearch() {
+      this.search_loading = true
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.banner{
+.banner {
   min-height: 360px;
   background: url("../../../assets/problems.png") no-repeat;
   background-size: 100% 100%;
@@ -93,29 +145,45 @@ export default {
   width: 100%;
   color: #fff;
 }
-.banner .title{
+
+.banner .title {
   padding: 70px 0 24px;
   font-size: 48px;
   font-weight: 600;
   line-height: 48px;
 }
+
 .banner .remark {
   margin-bottom: 70px;
   font-size: 25px;
   line-height: 26px;
 }
+
 .banner .desc {
   font-size: 18px;
   line-height: 22px;
 }
-.ant-card{
+
+.ant-card {
   border-radius: 10px;
 }
-.el-table{
+
+/deep/ .ant-card-head-title {
+  padding: 3px;
+}
+
+.el-table {
   --el-table-border-color: #ffffff;
 }
-.btn{
-  background: linear-gradient(318deg,#2d58ff,#3c8dff);
+
+/deep/ .el-table thead {
+  color: #2f2f2f;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.btn {
+  background: linear-gradient(318deg, #2d58ff, #69a4f8);
   color: #ffffff;
 }
 </style>
