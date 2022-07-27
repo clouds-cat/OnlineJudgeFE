@@ -61,7 +61,7 @@
             </el-table-column>
             <el-table-column prop="submit">
               <template #default="scope">
-                <el-button class="btn" round>开始挑战</el-button>
+                <el-button class="btn" round @click="toDetail">开始挑战</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -148,6 +148,9 @@ export default {
     searchMain() {
       this.search_loading = true
     },
+    toDetail(){
+      this.$router.push({ name: "finallytest" });
+
     searchLevel(){
       console.log(this.search_level)
     }
