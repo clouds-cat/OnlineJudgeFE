@@ -32,7 +32,7 @@ const app = createApp(App)
 app.config.globalProperties.$echarts = echarts;
 
 app
-    .use(ElementPlus, { size: 'small', zIndex: 3000 })
+    .use(ElementPlus)
     .use(router)
     .use(store)
     .use(Antd)

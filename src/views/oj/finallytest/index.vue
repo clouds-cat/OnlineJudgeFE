@@ -12,9 +12,11 @@
           <div
             class="finallytext-introduce-content-left-normal"
             v-for="(item, index) in leftList"
+            @mouseenter="changeUrl(index,'hover')"
+            @mouseleave="changeUrl(index,'')"
             :key="index"
           >
-            <img :src="item.icon" @click="changeContent(index)" />
+            <img :src="item.showIcon" @click="changeContent(index)" />
             <div v-if="item.number >= 0">({{ item.number }})</div>
           </div>
         </div>
@@ -60,25 +62,27 @@
         <div style="height: 800px">
           <CodeEditor ref="CM" v-model:code="code"></CodeEditor>
         </div>
-        <a-button
+        <div class="finallytext-footer">
+          <div
           danger
           block
-          style="margin-top: 10px"
+          style="color: white;"
           type="primary"
-          @click="handleDeconste"
+          @click="handleDelete"
           :disabled="code.length <= 0"
         >
           清空代码
-        </a-button>
+        </div>
         <a-button
           block
-          style="margin-top: 10px"
+          style="width: 80px;margin-left: 10px;"
           @click="submitCode"
           :loading="submit_loading"
           type="primary"
         >
           提交
         </a-button>
+        </div>
       </a-card>
     </div>
   </div>
@@ -91,6 +95,8 @@ export default {
 
   data() {
     return {
+      submit_loading:false,
+
       code: "",
       Problem: {
         problemId: 1,
@@ -158,23 +164,38 @@ export default {
       leftList: [
         {
           label: "题目",
+          showIcon:'',
           icon: new URL(
             "../../../assets/finally-text/list.png",
+            import.meta.url
+          ).href,
+            icon2: new URL(
+            "../../../assets/finally-text/list2.png",
             import.meta.url
           ).href,
         },
         {
           label: "答案",
+          showIcon:'',
           icon: new URL(
             "../../../assets/finally-text/answer.png",
+            import.meta.url
+          ).href,
+          icon2:new URL(
+            "../../../assets/finally-text/answer2.png",
             import.meta.url
           ).href,
           number: 0,
         },
         {
           label: "时间",
+          showIcon:'',
           icon: new URL(
             "../../../assets/finally-text/time.png",
+            import.meta.url
+          ).href,
+           icon2: new URL(
+            "../../../assets/finally-text/time2.png",
             import.meta.url
           ).href,
           number: 2,
@@ -220,8 +241,43 @@ export default {
     changeContent(index) {
       this.isShowContent = index;
     },
+    changeUrl(index,way){
+      if(way){
+        this.leftList[index].showIcon = this.leftList[index].icon2
+      }else{
+        this.leftList[index].showIcon = this.leftList[index].icon
+      }
+    },
+    handleDelete(){
+      this.$refs.CM.code = ""
+      this.code = ""
+      console.log(this.code)
+    },
+    submitCode(){
+      if(this.code.length <= 0){
+        message.error({
+          content: ()=> " 代 码 不 能 为 空",
+          class: "message-prompt",
+          duration:"3"
+        });
+        return
+      }
+      this.submit_loading = true
+      setTimeout(() => {
+        this.submit_loading = false;
+        message.success({
+          content: ()=> " 提 交 成 功",
+          class: "message-prompt",
+          duration:"3"
+        });
+      }, 2000);
+    }
   },
-  mounted() {},
+  mounted() {
+    this.leftList.forEach((item) => {
+      item.showIcon = item.icon
+    });
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -269,7 +325,7 @@ export default {
         }
         .finallytext-introduce-content-left-normal:hover{
           margin: 15px 0;
-          background-color: aqua;
+          color:#007bff
         }
       }
 
@@ -305,5 +361,13 @@ export default {
       background-color: #28343c;
     }
   }
+}
+.finallytext-footer{
+  display: flex;
+      justify-content: flex-end;
+    padding: 10px 20px;
+    align-items: center;
+    background: #1e1e1e;
+    border-top: 1px solid hsla(0,0%,100%,.15);
 }
 </style>
