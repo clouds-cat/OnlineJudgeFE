@@ -143,7 +143,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*/deep/ .el-card__header {*/
 /*  background-color: #f5faff;*/
 /*  padding:10px 10px 10px 10px*/
