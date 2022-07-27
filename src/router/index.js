@@ -44,9 +44,9 @@ const routes = [
         hidden: true,
     },
     {
-        path: '/finallytest',
-        name: "finallytest",
-        component: () => import("../views/oj/finallytest/index.vue"),
+        path: '/problems/:problemId/',
+        name: "ProblemDetail",
+        component: () => import("../views/oj/problem/ProblemDetail.vue"),
         hidden: true,
     },
     {
