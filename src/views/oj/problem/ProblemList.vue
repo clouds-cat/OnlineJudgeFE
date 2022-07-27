@@ -8,22 +8,30 @@
   </div>
   <div style="width: 86%;height: 100px; margin: 30px auto 0;">
     <a-row :gutter="21">
-      <a-col :span="16">
+      <a-col :span="17">
         <a-card>
           <template #title>
-            <span style="font-size: 30px;color:#71a9c5;display: block; text-align: center">题目列表</span>
-            <el-space style="margin-bottom: 15px; margin-top: 5px"  spacer="|">
-              <a-input-search v-model:value="value" size="large" placeholder="请输入题目标题/ID" @search="onSearch" style="width: 30vh;" :loading="search_loading"/>
-              <a-dropdown style="float:right;">
-                <el-tag style="font-size: 17px;color: #666666" effect="light" type="info" size="large">难度 <DownOutlined /></el-tag>
-                <template #overlay>
-                  <a-menu>
-                    <a-menu-item key="1">入门</a-menu-item>
-                    <a-menu-item>简单</a-menu-item>
-                  </a-menu>
-                </template>
-              </a-dropdown>
+            <el-space class="margin_space" spacer="">
+              <span style="font-size: 22px;">查找题目</span>
+              <a-input-search v-model:value="search_main" placeholder="请输入题目标题 / ID" @search="searchMain" style="width: 35vh;margin-left: 2vh" :loading="search_loading"/>
             </el-space>
+            <br/>
+            <el-space class="margin_space"  spacer="">
+              <span style="font-size: 17px">难度</span>
+              <el-radio-group v-model="search_level" style="margin-left: 2vh" size="small" @change="searchLevel">
+                <el-radio label="" border>全部</el-radio>
+                <el-radio label="0" border>入门</el-radio>
+                <el-radio label="1" border>简单</el-radio>
+                <el-radio label="2" border>中等</el-radio>
+                <el-radio label="3" border>困难</el-radio>
+                <el-radio label="4" border>非常困难</el-radio>
+              </el-radio-group>
+            </el-space>
+            <div class="margin_space">
+              <span style="font-size: 17px;">标签</span>
+              <div style="margin-top: 10px"/>
+              <el-button size="small" v-for="tag in TagList" style="font-size: 15px" :color="tag.color" plain>{{tag.tag_id}}</el-button>
+            </div>
           </template>
           <el-table :data="ProblemList" table-layout="auto">
             <el-table-column prop="problemId" label="#" align="center">
@@ -41,12 +49,12 @@
                 <el-tag effect="dark" type="danger">{{ scope.row.level }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column prop="" label="通过率" align="center">
+            <el-table-column prop="rate" label="通过率" align="center" sortable>
               <template #default="scope">
                 <span style="font-size: 16px;">{{ scope.row.rate }}%</span>
               </template>
             </el-table-column>
-            <el-table-column prop="submit" label="提交数" align="center">
+            <el-table-column prop="submit" label="提交数" align="center" sortable>
               <template #default="scope">
                 <span style="font-size: 16px;">{{ scope.row.submit }}</span>
               </template>
@@ -58,10 +66,10 @@
             </el-table-column>
           </el-table>
           <a-pagination style="margin-top: 20px;text-align:center;" v-model:current="pageNumber" :total="total"
-                        @change="onChange"/>
+                        @change="pageChange"/>
         </a-card>
       </a-col>
-      <a-col :span="8">
+      <a-col :span="7">
         <a-card>
           即将开始的比赛
         </a-card>
@@ -117,20 +125,31 @@ export default {
           rate: 0.0,
         }
       ],
+      TagList:[
+        {tag_id: "线段树", color: "#f50"},
+        {tag_id: "分治", color: "#2db7f5"},
+        {tag_id: "组合数学", color: "#87d068"},
+        {tag_id:"lca",color:"#108ee9"},
+        {tag_id:"dp",color:"#531dba"},
+      ],
       pageSize: 15,
       pageNumber: 1,
       total: 30,
+      search_main:"",
       search_loading: false,
       search_level: "",
       options: [{value: "0", label: "入门"}, {value: "1", label: "简单"}],
     }
   },
   methods: {
-    onChange(pageNumber) {
+    pageChange(pageNumber) {
       this.pageNumber = pageNumber
     },
-    onSearch() {
+    searchMain() {
       this.search_loading = true
+    },
+    searchLevel(){
+      console.log(this.search_level)
     }
   }
 }
@@ -177,13 +196,18 @@ export default {
 }
 
 /deep/ .el-table thead {
-  color: #2f2f2f;
-  font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
 }
 
+/deep/ .el-radio.is-bordered.el-radio--small .el-radio__label{
+  font-size: 15px;
+}
 .btn {
   background: linear-gradient(318deg, #2d58ff, #69a4f8);
   color: #ffffff;
+}
+.margin_space{
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 </style>
