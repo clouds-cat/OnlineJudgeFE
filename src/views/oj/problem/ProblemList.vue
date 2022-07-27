@@ -1,13 +1,14 @@
 <template>
   <div>
     <div class="banner">
-      <div class="title"> Clouds-Cat Contest #1</div>
-      <div class="remark"> OJ 第一场月赛</div>
-      <div class="desc"> 每月一场，激情过瘾！</div>
+      <div class="banner-title"> Clouds-Cat Contest #1</div>
+      <div class="banner-remark"> OJ 第一场月赛</div>
+      <div class="banner-desc"> 每月一场，激情过瘾！</div>
     </div>
   </div>
   <div style="width: 86%;height: 100px; margin: 30px auto 0;">
     <a-row :gutter="21">
+<!--      题目列表-->
       <a-col :span="17">
         <a-card>
           <template #title>
@@ -61,7 +62,7 @@
             </el-table-column>
             <el-table-column prop="submit">
               <template #default="scope">
-                <el-button class="btn" round @click="toDetail(scope.row.problemId)">开始挑战</el-button>
+                <el-button class="btn1" round @click="toDetail(scope.row.problemId)">开始挑战</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -69,12 +70,35 @@
                         @change="pageChange"/>
         </a-card>
       </a-col>
+<!--      即将开始的比赛-->
       <a-col :span="7">
-        <a-card>
-          即将开始的比赛
+        <a-card style="overflow: hidden;height: 170px;">
+          <template #cover>
+            <div style="position: relative">
+              <div class="contest">
+                <div class="contest-title">第十三届蓝桥杯软件类大赛模拟赛测试</div>
+                <div class="contest-time">开始时间：2022-12-19 14:00:00</div>
+              </div>
+              <el-button class="btn2"> 参与竞赛 </el-button>
+            </div>
+          </template>
         </a-card>
-        <a-card style="margin-top: 20px">
-          本月刷题排行版
+<!--      排行榜-->
+        <a-card class="rank" style="background-image: url('src/assets/problem/rank.png');">
+          <div class="rank-top">
+            <span>上周刷题榜</span>
+          </div>
+          <div class="rank-middle">
+            <div class="rank-middle-interior">
+              <div class="rank-middle-main">
+                <span> 我已完成 </span>
+              </div>
+            </div>
+          </div>
+        </a-card>
+<!--        题解-->
+        <a-card class="answer_key">
+          <div style="margin-left: 10px"> 题解汇总 </div>
         </a-card>
       </a-col>
     </a-row>
@@ -164,56 +188,135 @@ export default {
 <style lang="less" scoped>
 .banner {
   min-height: 360px;
-  background: url("../../../assets/problems.png") no-repeat;
+  background: url("src/assets/problem/banner.png") no-repeat;
   background-size: 100% 100%;
   text-align: center;
   width: 100%;
   color: #fff;
+  .banner-title {
+    padding: 70px 0 24px;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 48px;
+  }
+  .banner-remark {
+    margin-bottom: 70px;
+    font-size: 25px;
+    line-height: 26px;
+  }
+  .banner-desc {
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
-
-.banner .title {
-  padding: 70px 0 24px;
-  font-size: 48px;
-  font-weight: 600;
-  line-height: 48px;
-}
-
-.banner .remark {
-  margin-bottom: 70px;
-  font-size: 25px;
-  line-height: 26px;
-}
-
-.banner .desc {
-  font-size: 18px;
-  line-height: 22px;
-}
-
-.ant-card {
-  border-radius: 10px;
-}
-
-/deep/ .ant-card-head-title {
-  padding: 3px;
-}
-
-.el-table {
-  --el-table-border-color: #ffffff;
-}
-
-/deep/ .el-table thead {
-  font-size: 18px;
-}
-
-/deep/ .el-radio.is-bordered.el-radio--small .el-radio__label{
-  font-size: 15px;
-}
-.btn {
+.btn1 {
   background: linear-gradient(318deg, #2d58ff, #69a4f8);
   color: #ffffff;
+}
+.btn2 {
+  background: linear-gradient(180deg,#f5c940,#ff9b27 100%,#ff9b27 0);
+  color: #ffffff;
+  box-shadow:0 10px 20px 0 rgb(255 89 5 / 15%);
+  font-weight: 500;
+  border: 0;
+  position: absolute;
+  z-index: 1;
+  top: 138px;
+  left: -1px;
 }
 .margin_space{
   margin-top: 10px;
   margin-bottom: 15px;
+}
+.contest{
+  min-height: 170px;
+  background: url("../../../assets/problem/contest.png") no-repeat;
+  background-size: 100% 100%;
+  transition: all .5s;
+  padding: 28px;
+  color: #ffffff;
+  position: absolute;
+  width: 100% ;
+  .contest-title {
+    font-size: 23px;
+    font-weight: 600;
+    width: 100%;
+    white-space: nowrap; // 禁止换行
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .contest-time{
+    font-size: 15px;
+    margin-top: 10px;
+  }
+}
+.contest:hover{
+  transform: scale(1.1);
+}
+.contest:hover .contest-title{
+  transform: scale(1);
+}
+.rank{
+  height: 500px;
+  margin-top: 30px;
+  background: #ffffff no-repeat;
+  background-size: 100% 100px;
+  .rank-top{
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 20px 20px 0;
+    width: 100%;
+    font-size: 24px;
+    font-weight: 500;
+    color: #fff;
+    margin-top: -20px;
+  }
+  .rank-middle{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 20px;
+    margin: 18px auto 20px;
+    .rank-middle-interior {
+      background: #fff;
+      border-radius: 10px;
+      .rank-middle-main{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg,rgba(62,81,255,.2),rgba(62,81,255,0) 48%,hsla(0,0%,100%,0));
+        box-shadow: 0 2px 10px 0 rgba(205, 209, 213, 0.5);
+        border-radius: 10px;
+      }
+    }
+  }
+}
+.answer_key{
+  font-size: 23px;
+  font-weight: 600;
+  color: #ffffff;
+  background: url("../../../assets/problem/answerkey.png") no-repeat;
+  background-size: 100% 100%;
+  height: 16vh;
+  margin-top: 30px;
+}
+.ant-card {
+  border-radius: 15px;
+  border: 0;
+}
+.ant-card-head-title {
+  padding: 3px;
+}
+.el-table {
+  --el-table-border-color: #ffffff;
+}
+/deep/ .el-table thead {
+  font-size: 18px;
+}
+/deep/ .el-radio.is-bordered.el-radio--small .el-radio__label{
+  font-size: 15px;
 }
 </style>
