@@ -70,23 +70,23 @@
                         @change="pageChange"/>
         </a-card>
       </a-col>
-<!--      即将开始的比赛-->
       <a-col :span="7">
-        <a-card style="overflow: hidden;height: 170px;">
+<!--      即将开始的比赛-->
+        <a-card style="overflow: hidden;min-height: 170px;min-width: 250px">
           <template #cover>
             <div style="position: relative">
               <div class="contest">
                 <div class="contest-title">第十三届蓝桥杯软件类大赛模拟赛测试</div>
                 <div class="contest-time">开始时间：2022-12-19 14:00:00</div>
               </div>
-              <el-button class="btn2"> 参与竞赛 </el-button>
+              <el-button class="btn2" size="large"> 参与竞赛 </el-button>
             </div>
           </template>
         </a-card>
 <!--      排行榜-->
         <a-card class="rank" style="background-image: url('src/assets/problem/rank.png');">
           <div class="rank-top">
-            <span>上周刷题榜</span>
+            上周刷题榜
           </div>
           <div class="rank-middle">
             <div class="rank-middle-interior">
@@ -97,9 +97,9 @@
           </div>
         </a-card>
 <!--        题解-->
-        <a-card class="answer_key">
-          <div style="margin-left: 10px"> 题解汇总 </div>
-        </a-card>
+        <a-button class="answer_key" style="width: 100%; padding: 28px">
+          <div style="float: left"> 题解汇总 </div>
+        </a-button>
       </a-col>
     </a-row>
   </div>
@@ -218,18 +218,19 @@ export default {
   color: #ffffff;
   box-shadow:0 10px 20px 0 rgb(255 89 5 / 15%);
   font-weight: 500;
-  border: 0;
+  font-size: 18px;
   position: absolute;
   z-index: 1;
-  top: 138px;
+  top: 136px;
   left: -1px;
+  border: 2px solid #8ba5ff;
 }
 .margin_space{
   margin-top: 10px;
   margin-bottom: 15px;
 }
 .contest{
-  min-height: 170px;
+  min-height: 175px;
   background: url("../../../assets/problem/contest.png") no-repeat;
   background-size: 100% 100%;
   transition: all .5s;
@@ -257,23 +258,20 @@ export default {
   transform: scale(1);
 }
 .rank{
+  min-width: 250px;
   height: 500px;
   margin-top: 30px;
   background: #ffffff no-repeat;
   background-size: 100% 100px;
   .rank-top{
     justify-content: space-between;
-    box-sizing: border-box;
-    padding: 20px 20px 0;
-    width: 100%;
-    font-size: 24px;
-    font-weight: 500;
+    width: auto;
+    font-size: 23px;
+    font-weight: 600;
     color: #fff;
-    margin-top: -20px;
   }
   .rank-middle{
-    box-sizing: border-box;
-    width: 100%;
+    width: auto;
     padding: 0 20px;
     margin: 18px auto 20px;
     .rank-middle-interior {
@@ -287,7 +285,7 @@ export default {
         padding: 20px;
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg,rgba(62,81,255,.2),rgba(62,81,255,0) 48%,hsla(0,0%,100%,0));
+        background: linear-gradient(180deg, rgba(13, 36, 241, 0.2),rgba(62,81,255,0) 48%,hsla(0,0%,100%,0));
         box-shadow: 0 2px 10px 0 rgba(205, 209, 213, 0.5);
         border-radius: 10px;
       }
@@ -295,6 +293,7 @@ export default {
   }
 }
 .answer_key{
+  min-width: 250px;
   font-size: 23px;
   font-weight: 600;
   color: #ffffff;
@@ -304,7 +303,11 @@ export default {
   margin-top: 30px;
 }
 .ant-card {
-  border-radius: 15px;
+  border-radius: 20px;
+  border: 0;
+}
+.ant-btn{
+  border-radius: 20px;
   border: 0;
 }
 .ant-card-head-title {
