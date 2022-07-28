@@ -82,7 +82,7 @@ header {
 .banner1 {
   width: 100%;
   background: #e5e5e5;
-  min-height: 200vh;
+  min-height: 210vh;
   /*padding-bottom: 30px;*/
 }
 
