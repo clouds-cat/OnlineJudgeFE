@@ -75,7 +75,7 @@
       </a-col>
       <a-col :span="6">
         <!--      即将开始的比赛-->
-        <a-card style="overflow: hidden;min-height: 170px;min-width: 250px">
+        <a-card style="overflow: hidden;min-height: 170px;min-width: 300px">
           <template #cover>
             <div style="position: relative">
               <div class="contest">
@@ -87,7 +87,7 @@
           </template>
         </a-card>
         <!--      排行榜-->
-        <div style="background: #ffffff;border-radius: 20px; width: 100%;background-size: 100% 100%;  min-width: 250px;">
+        <div style="background: #ffffff;border-radius: 20px; width: 100%;background-size: 100% 100%;  min-width: 300px;">
           <a-card class="rank">
             <div class="rank-top">
               上周刷题榜
@@ -109,9 +109,9 @@
                     </template>
                     <template #avatar>
                       <div style="display: flex;">
-                        <div v-if="index == 0" style="height: 32px; width: 28px; background: url('src/assets/problem/rank1.png'); background-size: 100% 100%"></div>
-                        <div v-else-if="index == 1" style="height: 32px; width: 28px; background: url('src/assets/problem/rank2.png'); background-size: 100% 100%"></div>
-                        <div v-else-if="index == 2" style="height: 32px; width: 28px; background: url('src/assets/problem/rank3.png'); background-size: 100% 100%"></div>
+                        <div v-if="index == 0" class="first"></div>
+                        <div v-else-if="index == 1" class="second"></div>
+                        <div v-else-if="index == 2" class="third"></div>
                         <div v-else style="height: 32px; width: 28px;font-size: 17px;font-weight: 500;text-align: center"><span>{{index + 1}}</span></div>
                         <a-avatar style="margin-left: 15px" :size="50" src="https://joeschmoe.io/api/v1/random"/>
                       </div>
@@ -341,7 +341,7 @@ export default {
 }
 
 .rank {
-  min-width: 250px;
+  min-width: 300px;
   margin-top: 30px;
   background: url("../../../assets/problem/rank.png") no-repeat;
   background-size: 100% 100px;
@@ -374,8 +374,27 @@ export default {
     }
   }
 }
+.first{
+  height: 32px;
+  width: 28px;
+  background: url('../../../assets/problem/rank1.png') no-repeat;
+  background-size: 100% 100%
+}
+.second{
+  height: 32px;
+  width: 28px;
+  background: url('../../../assets/problem/rank2.png') no-repeat;
+  background-size: 100% 100%
+}
+.third{
+  height: 32px;
+  width: 28px;
+  background: url('../../../assets/problem/rank3.png') no-repeat;
+  background-size: 100% 100%
+}
+
 .answer_key {
-  min-width: 250px;
+  min-width: 300px;
   font-size: 23px;
   font-weight: 600;
   color: #ffffff;

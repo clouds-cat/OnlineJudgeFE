@@ -20,7 +20,7 @@ export default {
     }
   },
   alias: {
-    '/@/': resolve(__dirname, 'src'),
+    '@': resolve(__dirname, '/src'),
   },
   build: {
     chunkSizeWarningLimit: 2000,
