@@ -95,7 +95,7 @@
             <div class="rank-middle">
               <div class="rank-middle-interior">
                 <div class="rank-middle-main">
-                  <span style="font-size: 16px; font-weight: 320"><b style="font-weight: 500;font-size: 17px">我通过了：</b>{{ "3" }}题 </span>
+                  <span style="font-size: 16px; font-weight: 320"><b style="font-weight: 500;font-size: 17px">我通过了：</b>{{ "15" }}题 </span>
                   <span style="font-size: 21px; font-weight: 600;color: #ff5905;">No.{{ "1" }}</span>
                 </div>
               </div>
@@ -105,7 +105,7 @@
                 <a-list-item>
                   <a-list-item-meta :description="item.nick">
                     <template #title>
-                      <a href="https://www.antdv.com/">{{ item.userId }} </a>
+                      <a href="/">{{ item.userId }} </a>
                     </template>
                     <template #avatar>
                       <div style="display: flex;">
@@ -352,16 +352,13 @@ export default {
     font-weight: 600;
     color: #fff;
   }
-
   .rank-middle {
     width: auto;
-    padding: 0 20px;
+    padding: 0 2px;
     margin: 8px auto 2px;
-
     .rank-middle-interior {
       background: #fff;
       border-radius: 10px;
-
       .rank-middle-main {
         display: flex;
         align-items: center;
