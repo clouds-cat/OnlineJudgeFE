@@ -19,6 +19,7 @@
             <img :src="item.showIcon" @click="changeContent(index)" />
             <div v-if="item.number >= 0">({{ item.number }})</div>
           </div>
+          <div class="finallytext-introduce-content-left-bottom" @click="showDrawer">题目列表</div>
         </div>
         <div class="finallytext-introduce-content-right">
           <v-md-editor
@@ -33,7 +34,7 @@
     </div>
     <div class="finallytext-line" @mousedown="mouseDown"></div>
     <div class="finallytext-code">
-      <a-card>
+      <a-card style="height: 100%;">
         <a-row>
           <a-col>
             <a-space :size="10">
@@ -49,17 +50,8 @@
               </a-select>
             </a-space>
           </a-col>
-          <!-- <a-col>
-                <a-space :size="10">
-                  <span style="font-size: 17px"> 主题: </span>
-                  <a-select @change="ModifyCodeEditor" v-model:value="theme" style="width: 20vh">
-                    <a-select-option value="dark">优雅黑</a-select-option>
-                    <a-select-option value="bright">简约白</a-select-option>
-                  </a-select>
-                </a-space>
-              </a-col> -->
         </a-row>
-        <div style="height: 800px">
+        <div :style="'height: calc(100% - 100px)'">
           <CodeEditor ref="CM" v-model:code="code"></CodeEditor>
         </div>
         <div class="finallytext-footer">
@@ -86,6 +78,18 @@
       </a-card>
     </div>
   </div>
+  <a-drawer
+    v-model:visible="visible"
+    class="custom-class"
+    style="color: red"
+    title="letcode题目列表"
+    placement="left"
+    @after-visible-change="afterVisibleChange"
+  >
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+  </a-drawer>
 </template>
 <script>
 import CodeEditor from "../../../components/CodeEditor.vue";
@@ -94,8 +98,11 @@ export default {
   components: { CodeEditor },
   data() {
     return {
+      visible:false,
       submit_loading:false,
       code: "",
+      theme: "dark",
+language:"",
       Problem: {
         problemId: 1,
         title: "质因子个数",
@@ -121,6 +128,24 @@ export default {
           "\n" +
           "\n" +
           "### 样例输出 \n" +
+          "\n" +
+          "```text\n" +
+          "3\n" +
+          "```\n" +
+          "\n" +
+          "\n" +
+          "\n" +
+          "### 样例说明\n" +
+          "\n" +
+          "396 有 $2,3,11$ 三个质数约数。\n" +
+          "\n" +
+          "### 评测用例规模与约定 \n" +
+          "\n" +
+          "对于 $30 \\%$ 的评测用例, $1 \\leq n \\leq 10000$ 。\n" +
+          "\n" +
+          "对于 $60 \\%$ 的评测用例, $1 \\leq n \\leq 10^{9}$ 。\n" +
+          "\n" +
+          "对于所有评测用例, $1 \\leq n \\leq 10^{16}$ 。" +
           "\n" +
           "```text\n" +
           "3\n" +
@@ -233,7 +258,7 @@ export default {
       document.getElementsByClassName("finallytext-line")[0].onmousemove = null;
     },
     goHomePage() {
-      this.$router.push({ name: "/" });
+      this.$router.push({ name: "Problems" });
     },
     changeContent(index) {
       this.isShowContent = index;
@@ -268,6 +293,15 @@ export default {
           duration:"3"
         });
       }, 2000);
+    },
+    ModifyCodeEditor(){
+      this.$refs.CM.changeThemeMode(this.language, this.theme)
+    },
+    showDrawer(){
+      this.visible = true;
+    },
+    afterVisibleChange(bool){
+console.log('visible', bool);
     }
   },
   mounted() {
@@ -280,12 +314,12 @@ export default {
 <style lang="less" scoped>
 .finallytext-box {
   height: 100vh;
+  width: 100%;
   display: flex;
   overflow: hidden;
 
   .finallytext-introduce {
     width: 49.3%;
-    overflow: scroll;
 
     .finallytext-introduce-title {
       display: flex;
@@ -324,30 +358,42 @@ export default {
           margin: 15px 0;
           color:#007bff
         }
+        .finallytext-introduce-content-left-bottom {
+         writing-mode:vertical-lr;
+        margin: 0 auto;
+        position: relative;
+        top: 70%;
+        }
       }
 
       .finallytext-introduce-content-right {
         width: calc(100% - 50px);
-
+    overflow: scroll;
         /deep/.github-markdown-body {
           padding: 20px;
         }
       }
+::-webkit-scrollbar{display: none;}
+
     }
   }
 
   .finallytext-line {
-    width: 0.4%;
+    width: 0.2%;
     height: 100%;
-    cursor: move;
+    cursor: col-resize;
+  }
+  .finallytext-line:hover{
+    background-color: #777;
   }
 
   .finallytext-code {
     height: 100%;
-    width: 49.3%;
+    width: 50.5%;
 
     /deep/.ant-card-body {
       padding: 0;
+      height: 100%;
     }
 
     /deep/.ant-row {
