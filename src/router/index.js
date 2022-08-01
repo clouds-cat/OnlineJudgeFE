@@ -38,12 +38,6 @@ const routes = [
         ],
     },
     {
-        path: '/401',
-        name: "401",
-        component: () => import("../views/error/401.vue"),
-        hidden: true,
-    },
-    {
         path: '/problems/:problemId/',
         name: "ProblemDetail",
         component: () => import("../views/oj/problem/ProblemDetail.vue"),

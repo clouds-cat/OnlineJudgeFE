@@ -248,9 +248,11 @@ export default {
     },
     toDetail(problemId) {
       this.$router.push({
-        path: '/problems/' + problemId,
-        query: problemId
-      });
+        name: 'ProblemDetail',
+        params: {
+          problemId: problemId
+        }
+      })
     },
     searchLevel() {
       console.log(this.search_level)
