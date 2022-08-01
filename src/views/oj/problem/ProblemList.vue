@@ -247,7 +247,8 @@ export default {
       this.search_loading = true
     },
     toDetail(problemId) {
-      this.$router.push({
+      let that = this
+      that.$router.push({
         name: 'ProblemDetail',
         params: {
           problemId: problemId
