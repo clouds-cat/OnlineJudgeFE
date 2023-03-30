@@ -108,19 +108,20 @@
             :new-string="ac_output"
             filename="your code : ac code"
             output-format="side-by-side"/>
-<!--        <el-card style="width: 100%;padding: 0">-->
-<!--          <el-row :gutter="10">-->
-<!--            <el-col :span="12">-->
-<!--              <h3> 你的结果 </h3>-->
-<!--              <el-input type="textarea" v-model="user_output" :autosize="{ minRows: 13, maxRows: 13}"></el-input>-->
-<!--            </el-col>-->
-<!--            <el-col :span="12">-->
-<!--              <h3> 标准结果 </h3>-->
-<!--              <el-input type="textarea" v-model="ac_output" :autosize="{ minRows: 13, maxRows: 13}"></el-input>-->
-<!--            </el-col>-->
-<!--          </el-row>-->
-<!--        </el-card>-->
-        <a-button  style="border-color:#e6a23c;color:#e6a23c; width: 100%; margin-top: 20px" plain :loading="compare_loading" @click="handleCompare">
+        <!--        <el-card style="width: 100%;padding: 0">-->
+        <!--          <el-row :gutter="10">-->
+        <!--            <el-col :span="12">-->
+        <!--              <h3> 你的结果 </h3>-->
+        <!--              <el-input type="textarea" v-model="user_output" :autosize="{ minRows: 13, maxRows: 13}"></el-input>-->
+        <!--            </el-col>-->
+        <!--            <el-col :span="12">-->
+        <!--              <h3> 标准结果 </h3>-->
+        <!--              <el-input type="textarea" v-model="ac_output" :autosize="{ minRows: 13, maxRows: 13}"></el-input>-->
+        <!--            </el-col>-->
+        <!--          </el-row>-->
+        <!--        </el-card>-->
+        <a-button style="border-color:#e6a23c;color:#e6a23c; width: 100%; margin-top: 20px" plain
+                  :loading="compare_loading" @click="handleCompare">
           执行对拍
         </a-button>
       </el-col>
@@ -132,6 +133,7 @@ import CodeEditor from "../../../components/CodeEditor.vue";
 import {message} from "ant-design-vue";
 import 'ant-design-vue/es/message/style/css';
 import {CodeDiff} from 'v-code-diff'
+
 export default {
   name: "ProblemDetail",
   components: {CodeEditor, CodeDiff},
@@ -331,6 +333,7 @@ export default {
       console.log(this.code)
     },
     submitCode() {
+      console.log(this.code)
       if (this.code.length <= 0) {
         message.error({
           content: () => " 代 码 不 能 为 空",
@@ -360,27 +363,28 @@ export default {
     },
     showCompare() {
       this.user_code = this.code
-      setTimeout(() => {
-        this.compareVis = true
-      }, 1000)
+      console.log(this.code)
+      console.log(this.user_code)
+      this.compareVis = true
     },
-    handleCompare(){
+    handleCompare() {
+      console.log(this.$refs.CM1.code)
+      console.log(this.user_code)
       this.compare_loading = true
       setTimeout(() => {
         let Input = this.user_input.split(' ')
-        let x = parseInt(Input[0]) , y = parseInt(Input[1])
+        let x = parseInt(Input[0]), y = parseInt(Input[1])
         this.compare_loading = false;
-        if(this.user_code.includes("+") && this.user_code.includes("-")) this.user_output = (x + y) + "\n" + (x - y) + "\n" + (x * y) + "\n"
+        if (this.user_code.includes("+") && this.user_code.includes("-")) this.user_output = (x + y) + "\n" + (x - y) + "\n" + (x * y) + "\n"
         else this.user_output = (x + y) + "\n" + (x + y) + "\n" + (x * y) + "\n"
-        console.log(this.user_code)
-        if(x == 666) this.user_output += "YES\n"
+        if (this.user_code.includes(x.toString())) this.user_output += "YES\n"
         this.ac_output = (x + y) + "\n" + (x - y) + "\n" + (x * y) + "\n"
         message.success({
           content: () => "执行成功",
           class: "message-prompt",
           duration: "3"
         });
-      }, 2000);
+      }, 1000);
     }
   },
   mounted() {

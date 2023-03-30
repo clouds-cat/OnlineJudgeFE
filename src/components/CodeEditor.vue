@@ -32,9 +32,14 @@ export default {
       required: true
     },
   },
+  watch:{
+    code(a , b){
+      this.$emit("update:code", a)
+    }
+  },
   setup(props, context) {
     // 数据
-    const code = ref(props.code);
+    let code = ref(props.code);
     let selectValue = "cpp";
     let dateTime = "黑夜";
     const options = reactive({
