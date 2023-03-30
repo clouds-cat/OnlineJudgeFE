@@ -46,6 +46,16 @@ export default {
       tabSize: 2,
       extensions: [cpp(), oneDark], //传递给CodeMirror EditorState。创建({扩展})
     });
+    function changeTheme(e) {
+      console.log("options.extensions:", options.extensions);
+      if (e.target.innerHTML === "黑夜") {
+        options.extensions = [];
+        dateTime = e.target.innerHTML = "白天";
+      } else {
+        options.extensions = [oneDark];
+        dateTime = e.target.innerHTML = "黑夜";
+      }
+    }
     // 方法
     // 失去焦点时,使用已编辑的代码
     function useEditedCode() {
@@ -77,7 +87,8 @@ export default {
       dateTime,
       ...toRefs(options),
       useEditedCode,
-      changeThemeMode
+      changeThemeMode,
+      changeTheme
     };
   },
 };
