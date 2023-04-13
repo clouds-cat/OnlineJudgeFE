@@ -307,11 +307,11 @@ export default {
           label: "题目",
           showIcon: '',
           icon: new URL(
-              "../../../assets/finally-text/list.png",
+              "/src/assets/finally-text/list.png",
               import.meta.url
           ).href,
           icon2: new URL(
-              "../../../assets/finally-text/list2.png",
+              "/src/assets/finally-text/list2.png",
               import.meta.url
           ).href,
         },
@@ -319,11 +319,11 @@ export default {
           label: "答案",
           showIcon: '',
           icon: new URL(
-              "../../../assets/finally-text/answer.png",
+              "/src/assets/finally-text/answer.png",
               import.meta.url
           ).href,
           icon2: new URL(
-              "../../../assets/finally-text/answer2.png",
+              "/src/assets/finally-text/answer2.png",
               import.meta.url
           ).href,
           number: 0,
@@ -332,11 +332,11 @@ export default {
           label: "时间",
           showIcon: '',
           icon: new URL(
-              "../../../assets/finally-text/time.png",
+              "/src/assets/finally-text/time.png",
               import.meta.url
           ).href,
           icon2: new URL(
-              "../../../assets/finally-text/time2.png",
+              "/src/assets/finally-text/time2.png",
               import.meta.url
           ).href,
           number: 2,

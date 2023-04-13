@@ -38,8 +38,8 @@ const routes = [
         ],
     },
     {
-        // path: '/problems/:problemId/',
-        path: '/problems/1001',
+        path: '/problems/:problemId/',
+        // path: '/problems/1001',
         name: "ProblemDetail",
         component: () => import("../views/oj/problem/ProblemDetail.vue"),
         hidden: true,

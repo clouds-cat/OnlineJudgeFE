@@ -234,9 +234,9 @@ export default {
       let that = this
       that.$router.push({
         name: 'ProblemDetail',
-        // params: {
-        //   problemId: problemId
-        // }
+        params: {
+          problemId: problemId
+        }
       })
     },
     searchLevel() {
