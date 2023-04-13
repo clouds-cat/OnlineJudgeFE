@@ -16,8 +16,21 @@
               @mouseleave="changeUrl(index,'')"
               :key="index"
           >
-            <img :src="item.showIcon" @click="changeContent(index)"/>
-            <div v-if="item.number >= 0">({{ item.number }})</div>
+            <a-button shape="round" v-if="index == 0" @click="changeContent(index)" style="width: 70%;padding: 1px;margin: 1px">
+              <template #icon>
+                <home-outlined />
+              </template>
+            </a-button>
+            <a-button shape="round" v-if="index==1" @click="changeContent(index)" style="width: 70%;padding: 1px;margin: 1px">
+              <template #icon>
+                <check-outlined />
+              </template>
+            </a-button>
+            <a-button shape="round" v-if="index==2" @click="changeContent(index)" style="width: 70%;padding: 1px;margin: 1px">
+              <template #icon>
+                <star-outlined />
+              </template>
+            </a-button>
           </div>
           <div class="finallytext-introduce-content-left-bottom" @click="showDrawer">题目列表</div>
         </div>
@@ -148,18 +161,6 @@
             :new-string="ac_output"
             filename="your code : ac code"
             output-format="side-by-side"/>
-        <!--        <el-card style="width: 100%;padding: 0">-->
-        <!--          <el-row :gutter="10">-->
-        <!--            <el-col :span="12">-->
-        <!--              <h3> 你的结果 </h3>-->
-        <!--              <el-input type="textarea" v-model="user_output" :autosize="{ minRows: 13, maxRows: 13}"></el-input>-->
-        <!--            </el-col>-->
-        <!--            <el-col :span="12">-->
-        <!--              <h3> 标准结果 </h3>-->
-        <!--              <el-input type="textarea" v-model="ac_output" :autosize="{ minRows: 13, maxRows: 13}"></el-input>-->
-        <!--            </el-col>-->
-        <!--          </el-row>-->
-        <!--        </el-card>-->
         <a-button style="border-color:#e6a23c;color:#e6a23c; width: 100%; margin-top: 0" plain
                   :loading="compare_loading" @click="handleCompare">
           执行对拍
@@ -176,10 +177,10 @@ import {CodeDiff} from 'v-code-diff'
 import JudgeAPI from "../../../utils/api/JudgeAPI";
 import Qs from 'qs'
 import StrUtil from "../../../utils/StrUtil";
-import { CaretRightOutlined } from '@ant-design/icons-vue';
+import { CaretRightOutlined, HomeOutlined, CheckOutlined, StarOutlined } from '@ant-design/icons-vue';
 export default {
   name: "ProblemDetail",
-  components: {CodeEditor, CodeDiff, CaretRightOutlined},
+  components: {CodeEditor, CodeDiff, CaretRightOutlined, HomeOutlined, CheckOutlined, StarOutlined},
   data() {
     return {
       switch_coding: false,
@@ -304,41 +305,20 @@ export default {
       isShowContent: 0,
       leftList: [
         {
+          name: "题",
           label: "题目",
           showIcon: '',
-          icon: new URL(
-              "/src/assets/finally-text/list.png",
-              import.meta.url
-          ).href,
-          icon2: new URL(
-              "/src/assets/finally-text/list2.png",
-              import.meta.url
-          ).href,
         },
         {
+          name: "答",
           label: "答案",
           showIcon: '',
-          icon: new URL(
-              "/src/assets/finally-text/answer.png",
-              import.meta.url
-          ).href,
-          icon2: new URL(
-              "/src/assets/finally-text/answer2.png",
-              import.meta.url
-          ).href,
           number: 0,
         },
         {
+
           label: "时间",
           showIcon: '',
-          icon: new URL(
-              "/src/assets/finally-text/time.png",
-              import.meta.url
-          ).href,
-          icon2: new URL(
-              "/src/assets/finally-text/time2.png",
-              import.meta.url
-          ).href,
           number: 2,
         },
       ],
@@ -393,11 +373,6 @@ export default {
       this.isShowContent = index;
     },
     changeUrl(index, way) {
-      if (way) {
-        this.leftList[index].showIcon = this.leftList[index].icon2
-      } else {
-        this.leftList[index].showIcon = this.leftList[index].icon
-      }
     },
     handleDelete() {
       this.$refs.CM.code = ""
@@ -517,7 +492,7 @@ export default {
   },
   mounted() {
     this.leftList.forEach((item) => {
-      item.showIcon = item.icon
+      // item.showIcon = item.icon
     });
   },
 };
