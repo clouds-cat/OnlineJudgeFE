@@ -98,12 +98,52 @@
         <CodeEditor ref="CM2" v-model:code="ac_code" style="height: 600px"/>
       </el-col>
       <el-col :span="10">
-        <h2>输入用例</h2>
-        <el-input type="textarea" v-model="user_input" style="width: 100%;"
+        <a-space align="center" :size="30">
+          <h2 style="margin-top: 10px">输入用例 </h2>
+          <a-switch v-model:checked="switch_coding" style="vertical-align: center"/>
+        </a-space>
+        <el-input v-if="!switch_coding" type="textarea" v-model="user_input" style="width: 100%;"
                   :autosize="{ minRows: 5, maxRows: 5}"></el-input>
+        <CodeEditor v-else ref="CM3" v-model:code="random_code" style="height: 300px;"/>
         <h2 style="margin-top: 10px">输出比对</h2>
+        <div v-if="switch_coding" v-for="(item, index) in random_output">
+          <a-badge-ribbon text="错误" color="red" v-if="item.ac_output.trim() != item.user_output.trim()">
+          <a-collapse
+              v-if="switch_coding"
+              :bordered="false"
+              style="background: rgb(255, 255, 255)"
+          >
+            <template #expandIcon="{ isActive }"><caret-right-outlined :rotate="isActive ? 90 : 0"/></template>
+            <a-collapse-panel key="1" :header="'# Compare ' + (index + 1)" style="background: #f8f8f8;border-radius: 4px;margin-bottom: 15px;border: 0;overflow: hidden">
+              <el-card>{{item.input}}</el-card>
+              <code-diff
+                  :old-string="item.user_output"
+                  :new-string="item.ac_output"
+                  filename="your code : ac code"
+                  output-format="side-by-side"/>
+            </a-collapse-panel>
+          </a-collapse>
+          </a-badge-ribbon>
+          <a-badge-ribbon text="正确" color="green" v-else>
+            <a-collapse
+                v-if="switch_coding"
+                :bordered="false"
+                style="background: rgb(255, 255, 255)"
+            >
+              <template #expandIcon="{ isActive }"><caret-right-outlined :rotate="isActive ? 90 : 0"/></template>
+              <a-collapse-panel key="1" :header="'# Compare ' + (index + 1)" style="background: #f8f8f8;border-radius: 4px;margin-bottom: 15px;border: 0;overflow: hidden">
+                <el-card>{{item.input}}</el-card>
+                <code-diff
+                    :old-string="item.user_output"
+                    :new-string="item.ac_output"
+                    filename="your code : ac code"
+                    output-format="side-by-side"/>
+              </a-collapse-panel>
+            </a-collapse>
+          </a-badge-ribbon>
+        </div>
         <code-diff
-            trim
+            v-if="!switch_coding"
             :old-string="user_output"
             :new-string="ac_output"
             filename="your code : ac code"
@@ -120,7 +160,7 @@
         <!--            </el-col>-->
         <!--          </el-row>-->
         <!--        </el-card>-->
-        <a-button style="border-color:#e6a23c;color:#e6a23c; width: 100%; margin-top: 20px" plain
+        <a-button style="border-color:#e6a23c;color:#e6a23c; width: 100%; margin-top: 0" plain
                   :loading="compare_loading" @click="handleCompare">
           执行对拍
         </a-button>
@@ -133,12 +173,16 @@ import CodeEditor from "../../../components/CodeEditor.vue";
 import {message} from "ant-design-vue";
 import 'ant-design-vue/es/message/style/css';
 import {CodeDiff} from 'v-code-diff'
-
+import JudgeAPI from "../../../utils/api/JudgeAPI";
+import Qs from 'qs'
+import StrUtil from "../../../utils/StrUtil";
+import { CaretRightOutlined } from '@ant-design/icons-vue';
 export default {
   name: "ProblemDetail",
-  components: {CodeEditor, CodeDiff},
+  components: {CodeEditor, CodeDiff, CaretRightOutlined},
   data() {
     return {
+      switch_coding: false,
       compareVis: false,
       visible: false,
       submit_loading: false,
@@ -157,6 +201,23 @@ export default {
           "  cout << a - b << '\\n';\n" +
           "  cout << a * b << '\\n';\n" +
           "  return 0;\n" +
+          "}",
+      random_cnt: 3,
+      random_input: [],
+      random_output: [],
+      random_code: "#include<bits/stdc++.h>\n" +
+          "#define int long long\n" +
+          "using namespace std;\n" +
+          "random_device rd;//用于生成随机数种子\n" +
+          "mt19937 r_eng(rd());//随机数生成器  \n" +
+          "int random(int n){\n" +
+          "    return r_eng() % n;\n" +
+          "}\n" +
+          "signed main()\n" +
+          "{\n" +
+          "    int a = random(5) + 3 , b = random(20) + 5;\n" +
+          "    cout << a << \" \" << b << '\\n';\n" +
+          "    return 0;\n" +
           "}",
       theme: "dark",
       language: "C++",
@@ -281,6 +342,17 @@ export default {
           number: 2,
         },
       ],
+      query_data: {
+        selfType: "8",
+        tagId: "4",
+        subTagId: "0",
+        questionId: "105271",
+        selfInput: "",
+        selfOutput: "",
+        content: "",
+        language: "2",
+        languageName: "C++(clang++ 11.0.1)",
+      }
     };
   },
   methods: {
@@ -330,10 +402,8 @@ export default {
     handleDelete() {
       this.$refs.CM.code = ""
       this.code = ""
-      console.log(this.code)
     },
     submitCode() {
-      console.log(this.code)
       if (this.code.length <= 0) {
         message.error({
           content: () => " 代 码 不 能 为 空",
@@ -359,24 +429,21 @@ export default {
       this.visible = true;
     },
     afterVisibleChange(bool) {
-      console.log('visible', bool);
     },
     showCompare() {
       this.user_code = this.code
-      console.log(this.code)
-      console.log(this.user_code)
       this.compareVis = true
     },
-    handleCompare() {
-      console.log(this.$refs.CM1.code)
-      console.log(this.user_code)
+    handleCompare1() {
       this.compare_loading = true
       setTimeout(() => {
         let Input = this.user_input.split(' ')
         let x = parseInt(Input[0]), y = parseInt(Input[1])
         this.compare_loading = false;
-        if (this.user_code.includes("+") && this.user_code.includes("-")) this.user_output = (x + y) + "\n" + (x - y) + "\n" + (x * y) + "\n"
-        else this.user_output = (x + y) + "\n" + (x + y) + "\n" + (x * y) + "\n"
+        if (this.user_code.includes("+") && this.user_code.includes("-")) {
+          this.user_output = (x + y) + "\n" + (x - y) + "\n" + (x * y) + "\n"
+          console.log(this.user_output)
+        } else this.user_output = (x + y) + "\n" + (x + y) + "\n" + (x * y) + "\n"
         if (this.user_code.includes(x.toString())) this.user_output += "YES\n"
         this.ac_output = (x + y) + "\n" + (x - y) + "\n" + (x * y) + "\n"
         message.success({
@@ -385,6 +452,67 @@ export default {
           duration: "3"
         });
       }, 1000);
+    },
+    async judgeCode(input_sample, code) {
+      let data = this.query_data
+      data.content = code
+      data.selfInput = input_sample
+      if (StrUtil.isEmpty(data.selfInput)) data.selfInput = "2 1"
+      let res = await JudgeAPI.judge(Qs.stringify(data))
+      if (!res.hasOwnProperty("userOutput")) res["userOutput"] = ""
+      return res.userOutput
+    },
+    async handleCompare() {
+      this.compare_loading = true
+      if (this.switch_coding) {
+        let requestPromiseArray_random = []
+        for(let i = 0 ; i < this.random_cnt ; i ++){
+          requestPromiseArray_random.push(this.judgeCode(i.toString()/* 随便传的 */ , this.random_code))
+        }
+        Promise.all(requestPromiseArray_random).then(resList => {
+          let requestPromiseArray = []
+          resList.forEach(input => {
+            requestPromiseArray.push(this.judgeCode(input, this.user_code))
+          })
+          resList.forEach(input => {
+            requestPromiseArray.push(this.judgeCode(input, this.ac_code))
+          })
+          Promise.all(requestPromiseArray).then(outputList => {
+            this.random_output = []
+            for(let i = 0 ; i < this.random_cnt ; i ++)  {
+              this.random_output.push({
+                user_output: outputList[i],
+                ac_output: outputList[i + this.random_cnt],
+                input: resList[i]
+              })
+            }
+            this.compare_loading = false
+            message.success("对拍结束")
+          })
+        })
+        // let input_sample = await this.judgeCode("123"/* 随便传的 */ , this.random_code)
+        // console.log(input_sample)
+        // let requestPromiseArray = []
+        // requestPromiseArray.push(this.judgeCode(input_sample, this.ac_code))
+        // requestPromiseArray.push(this.judgeCode(input_sample, this.user_code))
+        // Promise.all(requestPromiseArray).then(resList => {
+        //   this.ac_output = resList[0]
+        //   this.user_output = resList[1]
+        //   this.compare_loading = false
+        // })
+      } else {
+        let requestPromiseArray = []
+        requestPromiseArray.push(this.judgeCode(this.user_input, this.ac_code))
+        requestPromiseArray.push(this.judgeCode(this.user_input, this.user_code))
+        Promise.all(requestPromiseArray).then(resList => {
+          this.ac_output = resList[0]
+          this.user_output = resList[1]
+          message.success("对拍结束")
+          this.compare_loading = false
+        })
+        // this.ac_output = await this.judgeCode(this.user_input, this.ac_code)
+        // this.user_output = await this.judgeCode(this.user_input, this.user_code)
+      }
     }
   },
   mounted() {

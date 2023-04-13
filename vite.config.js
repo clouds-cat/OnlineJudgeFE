@@ -16,6 +16,14 @@ export default {
         pathRewrite: {
           '/api': ''
         }
+      },
+      '/lanqiao': {
+        target: 'https://ac.nowcoder.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/lanqiao/, ''),
+        headers:{
+          "Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'
+        }
       }
     }
   },

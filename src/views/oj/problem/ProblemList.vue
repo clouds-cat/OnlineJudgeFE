@@ -161,22 +161,6 @@ export default {
           submit: 1000,
           rate: 53.3
         },
-        {
-          problemId: 1002,
-          title: "A + B",
-          description: "### 问题描述\n" + "\n" + "给定正整数 $n$, 请问有多少个质数是 $n$ 的约数。\n" + "\n" + "### 输入格式 \n" + "\n" + "输入的第一行包含一个整数 $n$ 。\n" + "\n" + "### 输出格式 \n" + "\n" + "输出一个整数, 表示 $n$ 的质数约数个数。\n" + "\n" + "### 样例输入 \n" + "\n" + "```TEXT\n" + "396\n" + "```\n" + "\n" + "\n" + "\n" + "### 样例输出 \n" + "\n" + "```text\n" + "3\n" + "```\n" + "\n" + "\n" + "\n" + "### 样例说明\n" + "\n" + "396 有 $2,3,11$ 三个质数约数。\n" + "\n" + "### 评测用例规模与约定 \n" + "\n" + "对于 $30 \\%$ 的评测用例, $1 \\leq n \\leq 10000$ 。\n" + "\n" + "对于 $60 \\%$ 的评测用例, $1 \\leq n \\leq 10^{9}$ 。\n" + "\n" + "对于所有评测用例, $1 \\leq n \\leq 10^{16}$ 。",
-          level: "入门",
-          time_limit: "1000",
-          memory_limit: "256",
-          ac: 0,
-          wa: 0,
-          tle: 0,
-          mle: 0,
-          re: 0,
-          ce: 0,
-          submit: 0,
-          rate: 0.0,
-        }
       ],
       TagList: [
         {tag_id: "线段树", color: "#f50"},
@@ -250,9 +234,9 @@ export default {
       let that = this
       that.$router.push({
         name: 'ProblemDetail',
-        params: {
-          problemId: problemId
-        }
+        // params: {
+        //   problemId: problemId
+        // }
       })
     },
     searchLevel() {

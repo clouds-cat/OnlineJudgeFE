@@ -1,6 +1,6 @@
 import axios from 'axios'
 const request = axios.create({
-    baseURL: "/api",
+    baseURL: "/",
 })
 
 request.interceptors.request.use(config => {
